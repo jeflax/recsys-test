@@ -9,6 +9,10 @@
 <body>
     <label for="userIdSearch">Search per User ID:</label>
     <input type="text" id="userIdSearch" placeholder="Enter User ID">
+    <label for="rankSearch">Search per Rank:</label>
+    <input type="text" id="rankSearch" placeholder="Enter Rank">
+    <label for="itemIdSearch">Search per Item ID:</label>
+    <input type="text" id="itemIdSearch" placeholder="Enter Item ID">
     <table id="recommendations" class="display">
         <thead>
             <tr>
@@ -41,8 +45,19 @@
                 table.order([4, 'desc']).draw(); // Ordenar por la columna de Score
             });
 
+            // Búsqueda por User ID
             $('#userIdSearch').on('keyup', function() {
                 table.columns(0).search('^' + $(this).val() + '$', true, false).draw();
+            });
+
+            // Búsqueda por Rank
+            $('#rankSearch').on('keyup', function() {
+                table.columns(1).search('^' + $(this).val() + '$', true, false).draw();
+            });
+
+            // Búsqueda por Item ID
+            $('#itemIdSearch').on('keyup', function() {
+                table.columns(2).search('^' + $(this).val() + '$', true, false).draw();
             });
         });
     </script>
