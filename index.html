@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 <th>User ID</th>
+                <th>Rank</th>
                 <th>Item ID</th>
                 <th>Title</th>
                 <th>Score</th>
@@ -27,11 +28,17 @@
 
             $.getJSON('all_recommendations_json.json', function(data) {
                 $.each(data, function(parentId, recommendations) {
+                    // Ordenar las recomendaciones por score en orden descendente
+                    recommendations.sort(function(a, b) {
+                        return b.score - a.score;
+                    });
+
+                    // Añadir el rank a cada recomendación
                     $.each(recommendations, function(index, recommendation) {
-                        table.row.add([parentId, recommendation.itemId, recommendation.title, recommendation.score]);
+                        table.row.add([parentId, index + 1, recommendation.itemId, recommendation.title, recommendation.score]);
                     });
                 });
-                table.order([3, 'desc']).draw();
+                table.order([4, 'desc']).draw(); // Ordenar por la columna de Score
             });
 
             $('#userIdSearch').on('keyup', function() {
@@ -41,4 +48,3 @@
     </script>
 </body>
 </html>
-
